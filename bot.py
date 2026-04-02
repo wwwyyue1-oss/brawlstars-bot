@@ -171,6 +171,10 @@ async def battles(call: CallbackQuery):
 
 
 async def main():
+    async with aiohttp.ClientSession() as s:
+        async with s.get("https://ifconfig.me") as r:
+            ip = await r.text()
+            logging.info(f"My IP: {ip}")
     logging.info("Бот запускається...")
     await dp.start_polling(bot)
 
