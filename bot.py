@@ -33,6 +33,9 @@ async def get_player(tag: str):
     url = f"{BS_BASE}/players/{encoded}"
     async with aiohttp.ClientSession() as s:
         async with s.get(url, headers=HEADERS) as r:
+            logging.info(f"BS API status: {r.status} for tag {tag}")
+            text = await r.text()
+            logging.info(f"BS API response: {text}")
             if r.status == 200:
                 return await r.json(), tag
             return None, tag
